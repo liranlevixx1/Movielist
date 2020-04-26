@@ -14,18 +14,19 @@ public abstract class DatabaseManager extends RoomDatabase {
 
     public abstract dao dao();
 
-
-        //setting a singleton to make a database object.
+    //setting a singleton to make a database object.
     private static volatile DatabaseManager databaseManager;
-
-    public static DatabaseManager getDatabase(final Context contex){
+    // a method to check if the object was'nt created if it was return it.
+    public static DatabaseManager getDatabase(Context contex){
         //checking if the instance is null and creates it otherwise return it.
         if(databaseManager == null){
             synchronized (DatabaseManager.class) {
                 if(databaseManager == null) {
-
+                    //creating a data base file .
                     databaseManager = Room.databaseBuilder(contex.getApplicationContext()
-                            , DatabaseManager.class, "movies_database.db").build();
+                            , DatabaseManager.class, "movies_database.db")
+                            .fallbackToDestructiveMigration()
+                            .build();
                 }
             }
         }

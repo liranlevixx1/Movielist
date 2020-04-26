@@ -1,11 +1,15 @@
 package msapps.movies.com.data.db.entity;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity (tableName = "movies_table")
 public class Movie {
-
+    @PrimaryKey (autoGenerate = true)
     @SerializedName("title")
     @Expose
     private String title;
