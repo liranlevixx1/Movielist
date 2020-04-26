@@ -3,7 +3,6 @@ package msapps.movies.com.data.db;
 import android.content.Context;
 
 import androidx.room.Database;
-import androidx.room.Entity;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
@@ -12,10 +11,10 @@ import msapps.movies.com.data.db.entity.Movie;
 @Database(entities = Movie.class,version = 1)
 public abstract class DatabaseManager extends RoomDatabase {
 
-    public abstract dao dao();
+    public abstract movieDao dao();
 
     //setting a singleton to make a database object.
-    private static volatile DatabaseManager databaseManager;
+    private static DatabaseManager databaseManager;
     // a method to check if the object was'nt created if it was return it.
     public static DatabaseManager getDatabase(Context contex){
         //checking if the instance is null and creates it otherwise return it.
@@ -32,5 +31,6 @@ public abstract class DatabaseManager extends RoomDatabase {
         }
         return databaseManager;
     }
+
 
 }
