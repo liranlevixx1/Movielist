@@ -22,7 +22,8 @@ public class MovieListVM extends AndroidViewModel {
         allMovies = repository.getAllMoviesByIRD();
     }
 
-    public void insert(Movie movie){
+    // accessing our repository insert method.
+    public void insert(Movie movie) {
 
         repository.insert(movie);
     }

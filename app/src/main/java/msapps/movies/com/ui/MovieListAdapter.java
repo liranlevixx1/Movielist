@@ -19,10 +19,11 @@ import msapps.movies.com.data.db.entity.Movie;
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieHolder> {
 
     private List<Movie> movies = new ArrayList<>();
+
     @NonNull
     @Override
     public MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item,parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
         return new MovieHolder(itemView);
     }
 
@@ -30,7 +31,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     public void onBindViewHolder(@NonNull MovieHolder movieHolder, int position) {
         Movie currentMovie = movies.get(position);
         movieHolder.title.setText(currentMovie.getTitle());
-       // movieHolder.movieImage.setImageDrawable(currentMovie.getImage());
+        // movieHolder.movieImage.setImageDrawable(currentMovie.getImage());
 
     }
 
@@ -39,16 +40,16 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         return movies.size();
     }
 
-    public void setMovies(List<Movie>movies){
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }
 
-    class MovieHolder extends RecyclerView.ViewHolder{
+    class MovieHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private ImageView movieImage;
 
-        public MovieHolder(@Nullable View itemView){
+        public MovieHolder(@Nullable View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.movieTextView);
             movieImage = itemView.findViewById(R.id.movieImage);

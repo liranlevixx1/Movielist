@@ -1,12 +1,12 @@
 package msapps.movies.com;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import msapps.movies.com.ui.MovieListVM;
 
 public class MainActivity extends AppCompatActivity {
     private MovieListVM movieListVM;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
         movieListVM = new ViewModelProvider(this).get(MovieListVM.class);
         movieListVM.getAllMoviesByIRD().observe(this, new Observer<List<Movie>>() {
             @Override
-
-        public void onChanged(List<Movie> movies) {
+            // will trigger every time our data in LiveData changes.
+            public void onChanged(List<Movie> movies) {
+                //update our recycler view.
                 adapter.setMovies(movies);
             }
         });

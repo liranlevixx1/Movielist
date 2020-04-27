@@ -12,15 +12,15 @@ import msapps.movies.com.data.db.MovieDao;
 public class SplashVM extends AndroidViewModel {
 
     private String TAG = this.getClass().getSimpleName();
-    private MovieDao dao;
+    private MovieDao moviedao;
 
     public SplashVM(@NonNull Application application) {
         super(application);
     }
 
-    protected void onCleard(){
+    protected void onCleard() {
         super.onCleared();
-        Log.i(TAG,"ViewModel destroyed.");
+        Log.i(TAG, "ViewModel destroyed.");
 
     }
 }
