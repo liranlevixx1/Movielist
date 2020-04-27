@@ -38,16 +38,20 @@ public abstract class DatabaseManager extends RoomDatabase {
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
+                new PopulateDbAsyncTask(databaseManager).execute();
             }
         };
+
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void>{
         private MovieDao movieDao;
+
         private PopulateDbAsyncTask(DatabaseManager db){
             movieDao = db.movieDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
+            movieDao.insert(new Movie());
             return null;
         }
     }

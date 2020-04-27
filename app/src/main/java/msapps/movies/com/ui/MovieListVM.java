@@ -23,6 +23,7 @@ public class MovieListVM extends AndroidViewModel {
     }
 
     public void insert(Movie movie){
+
         repository.insert(movie);
     }
 

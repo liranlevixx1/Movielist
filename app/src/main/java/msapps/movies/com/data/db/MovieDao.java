@@ -24,5 +24,8 @@ public interface MovieDao {
     @Query("SELECT *FROM movies_table ORDER BY releaseYear ASC")
     LiveData<List<Movie>> getAllMoviesByIRD();
 
+    @Query("DELETE FROM movies_table")
+    void deleteAll();
+
 
 }
