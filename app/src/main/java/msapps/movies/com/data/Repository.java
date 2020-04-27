@@ -1,33 +1,48 @@
 package msapps.movies.com.data;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
 
 import java.util.List;
 
 import msapps.movies.com.data.db.DatabaseManager;
 import msapps.movies.com.data.db.entity.Movie;
-import msapps.movies.com.data.db.movieDao;
+import msapps.movies.com.data.db.MovieDao;
 
 public class Repository {
 
-    private movieDao dao;
+    private MovieDao movieDao;
     private LiveData<List<Movie>> allMovies;
 
      public Repository(Application application){
          DatabaseManager database =DatabaseManager.getDatabase(application);
-         dao =  database.dao();
-         allMovies = dao.getAllMoviesByIRD();
+         movieDao =  database.movieDao();
+         allMovies = movieDao.getAllMoviesByIRD();
 
      }
 
      public void insert(Movie movie){
-        dao.insert(movie);
+     //   movieDao.insert(movie);
+        new InsertMoviesAsyncTask(movieDao).execute(movie);
      }
-     public LiveData<List<Movie>> getAllMovies(){
+     public LiveData<List<Movie>> getAllMoviesByIRD(){
         return allMovies;
+    }
+    private static class InsertMoviesAsyncTask extends AsyncTask<Movie, Void, Void>{
+         private MovieDao movieDao;
+         private InsertMoviesAsyncTask(MovieDao movieDao){
+             this.movieDao = movieDao;
+         }
+
+        @Override
+        protected Void doInBackground(Movie... movies) {
+             movieDao.insert(movies[0]);
+            return null;
+        }
     }
 
 }
+
+

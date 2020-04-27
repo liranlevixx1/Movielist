@@ -5,16 +5,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.room.Dao;
 
-import msapps.movies.com.data.db.DatabaseManager;
-import msapps.movies.com.data.db.movieDao;
+import msapps.movies.com.data.db.MovieDao;
 
 //used it in order to parse the application context.
 public class SplashVM extends AndroidViewModel {
 
     private String TAG = this.getClass().getSimpleName();
-    private movieDao dao;
+    private MovieDao dao;
 
     public SplashVM(@NonNull Application application) {
         super(application);

@@ -14,7 +14,7 @@ import java.util.List;
 import msapps.movies.com.data.db.entity.Movie;
 
 @Dao
-public interface movieDao {
+public interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert (Movie movie);
     // we will call it in recycle view.
