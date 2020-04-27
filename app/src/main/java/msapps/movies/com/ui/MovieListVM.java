@@ -11,12 +11,12 @@ import java.util.List;
 import msapps.movies.com.data.Repository;
 import msapps.movies.com.data.db.entity.Movie;
 
-public class MovieDetailsVM extends AndroidViewModel {
+public class MovieListVM extends AndroidViewModel {
 
     private Repository repository;
     private LiveData<List<Movie>> allMovies;
 
-    public MovieDetailsVM(@NonNull Application application) {
+    public MovieListVM(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
         allMovies = repository.getAllMoviesByIRD();

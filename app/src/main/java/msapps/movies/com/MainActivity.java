@@ -3,26 +3,37 @@ package msapps.movies.com;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 import java.util.List;
 
 import msapps.movies.com.data.db.entity.Movie;
-import msapps.movies.com.ui.MovieDetailsVM;
+import msapps.movies.com.ui.MovieListAdapter;
+import msapps.movies.com.ui.MovieListVM;
 
 public class MainActivity extends AppCompatActivity {
-    private MovieDetailsVM movieDetailsVM;
+    private MovieListVM movieListVM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        movieDetailsVM = new ViewModelProvider(this).get(MovieDetailsVM.class);
-        movieDetailsVM.getAllMoviesByIRD().observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
+        RecyclerView recyclerView = findViewById(R.id.movieRecycle);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
 
+        final MovieListAdapter adapter = new MovieListAdapter();
+        recyclerView.setAdapter(adapter);
+
+        movieListVM = new ViewModelProvider(this).get(MovieListVM.class);
+        movieListVM.getAllMoviesByIRD().observe(this, new Observer<List<Movie>>() {
+            @Override
+
+        public void onChanged(List<Movie> movies) {
+                adapter.setMovies(movies);
             }
         });
     }
