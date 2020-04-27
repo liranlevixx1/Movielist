@@ -18,8 +18,8 @@ public interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert (Movie movie);
     // we will call it in recycle view.
-    @Query("SELECT *FROM movies_table ORDER BY title ASC")
-    LiveData<List<Movie>> getAllMovies();
+  /*  @Query("SELECT *FROM movies_table ORDER BY title ASC")
+    LiveData<List<Movie>> getAllMovies();*/
 
     @Query("SELECT *FROM movies_table ORDER BY releaseYear ASC")
     LiveData<List<Movie>> getAllMoviesByIRD();
