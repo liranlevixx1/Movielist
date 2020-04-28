@@ -1,5 +1,8 @@
 package msapps.movies.com.data.db.entity;
 
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,6 +12,11 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity (tableName = "movies_table")
 public class Movie {
+
+    private TextView listItemText ;
+    private ImageView listItemImage;
+
+
     @PrimaryKey (autoGenerate = true)
     @SerializedName("title")
     @Expose
