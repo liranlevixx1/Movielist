@@ -1,6 +1,5 @@
 package msapps.movies.com;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -9,6 +8,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +22,14 @@ import msapps.movies.com.ui.MovieListVM;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private MovieListVM movieListVM;
     ArrayList<Movie> movies = new ArrayList<>();
     private RecyclerView recyclerView;
     private MovieListAdapter adapter;
-
+    private AndroidhiveApiService androidhiveApiService;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
 
     @Override
@@ -37,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // making an instance of the json parse class.
-        AndroidhiveApiService androidhiveApiService = new AndroidhiveApiService();
+        //AndroidhiveApiService androidhiveApiService = new AndroidhiveApiService();
         // calling the method that parse the json.
-        getMovieResponmse();
+        androidhiveApiService.getMovieResponmse();
+        getMovieCalls();
 
         recyclerView = findViewById(R.id.movieRecycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -59,26 +60,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void getMovieResponmse() {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.androidhive.info/json/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    public void getMovieCalls() {
 
-        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+        jsonPlaceHolderApi = androidhiveApiService.retrofit.create(JsonPlaceHolderApi.class);
         Call<List<Movie>> call = jsonPlaceHolderApi.getMovies();
         call.enqueue(new Callback<List<Movie>>() {
             @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+            public void onResponse(@NotNull Call<List<Movie>> call, @NotNull Response<List<Movie>> response) {
+                assert response.body() != null;
                 movies = new ArrayList<>(response.body());
-                adapter = new MovieListAdapter(MainActivity.this,movies);
+                adapter = new MovieListAdapter(MainActivity.this, movies);
                 recyclerView.setAdapter(adapter);
-               if (!response.isSuccessful()) {
-                   Toast.makeText(MainActivity.this, "unsuccessful", Toast.LENGTH_SHORT).show();
-                }else {
-                   Toast.makeText(MainActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-               }
+                if (!response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "unsuccessful", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
