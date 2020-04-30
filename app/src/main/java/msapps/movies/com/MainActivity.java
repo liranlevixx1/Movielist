@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // making an instance of the json parse class.
-        //AndroidhiveApiService androidhiveApiService = new AndroidhiveApiService();
+        androidhiveApiService = new AndroidhiveApiService();
         // calling the method that parse the json.
-        androidhiveApiService.getMovieResponmse();
+        androidhiveApiService.getMovieResponse();
         getMovieCalls();
 
         recyclerView = findViewById(R.id.movieRecycle);
